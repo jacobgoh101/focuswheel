@@ -1,0 +1,39 @@
+@import 'bourbon/bourbon';
+@import 'neat/neat';
+
+$beige: #F5F5DC;
+
+html,body {
+  background-color: $beige;
+  width: 100%;
+  width: 100vw;
+  height: 100%;
+  height: 100vh;
+}
+
+.form-viewport-centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 80%;
+  max-width: 480px;
+  textarea {
+    font-size: 24px;
+    text-align: center;
+  }
+  .title.big {
+    //font-size:
+  }
+}
+
+.form-group {
+  text-align: center;
+  &, & textarea {
+    background-color: $beige;
+  }
+  .form-control:focus {
+    border-color: #ccc;
+    box-shadow: none;
+  }
+}

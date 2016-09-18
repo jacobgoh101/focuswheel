@@ -1,0 +1,39 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Focus Wheel</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <script src="js/react.js"></script>
+  <script src="js/react-dom.js"></script>
+  <script src="js/browser.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+  <div id="content" class="text-center">
+  </div>
+</div>
+<script type="text/babel" src="script.js"></script>
+<script>
+  $(document).ready(function(){
+    $('body').on('input','textarea',function () {
+      var h= this.offsetHeight;
+      $(this).css({   //clear current padding and height so we can use scrollHeight below
+        paddingTop: 0,
+        height: 0
+      });
+
+      $(this).css({
+        paddingTop: Math.max(0, h/2 - this.scrollHeight/2),
+        height: h
+      });
+    });
+  });
+</script>
+</body>
+</html>
