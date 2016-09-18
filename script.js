@@ -7,15 +7,16 @@ class App extends React.Component {
     }
     render(){
         if(this.state.step == 1) {
+            console.log('render');
             return (
-                <WhatIsItThatYouDontWant />
+                <WhatIsItThatIDontWant />
             );
         }
         return null;
     }
 }
 
-class WhatIsItThatYouDontWant extends React.Component  {
+class WhatIsItThatIDontWant extends React.Component  {
     componentDidMount(){
         this.refs.textarea.focus();
     }
@@ -25,7 +26,7 @@ class WhatIsItThatYouDontWant extends React.Component  {
     render() {
         return (
             <div className="form-group form-viewport-centered">
-                <label htmlFor="comment"><h3 className="title big">What is it that you don't want?</h3></label>
+                <label><h3 className="title big">What is it that I don't want?</h3></label>
                 <textarea className="form-control" rows={3} defaultValue={""} ref="textarea" />
             </div>
         );
