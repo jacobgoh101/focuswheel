@@ -3,34 +3,44 @@ class App extends React.Component {
         super(props);
         this.state = {
             step: 1,
+            WhatIsItThatIDontWant: '',
+            WhatDoIWant: '',
+            HowDoIFeelNowBefore: '',
+            HowDoIFeelNowNumberBefore: 5,
         };
         this.nextStep = this.nextStep.bind(this);
+        this.saveValue = this.saveValue.bind(this);
     }
     nextStep(){
         this.setState({
             step: (this.state.step + 1)
         });
     }
+    saveValue(componentName, value){
+        var obj = {};
+        obj[componentName] = value;
+        this.setState(obj);
+    }
     render(){
         switch(this.state.step) {
             case 1:
                 return (
-                    <WhatIsItThatIDontWant nextStep={this.nextStep} />
+                    <WhatIsItThatIDontWant nextStep={this.nextStep} save={this.saveValue} value={this.state.WhatIsItThatIDontWant} />
                 );
                 break;
             case 2:
                 return (
-                    <WhatDoIWant nextStep={this.nextStep} />
+                    <WhatDoIWant nextStep={this.nextStep} save={this.saveValue} value={this.state.WhatDoIWant} />
                 );
                 break;
             case 3:
                 return (
-                    <HowDoIFeelNowBefore nextStep={this.nextStep} />
+                    <HowDoIFeelNowBefore nextStep={this.nextStep} save={this.saveValue} value={this.state.HowDoIFeelNowBefore} />
                 );
                 break;
             case 4:
                 return (
-                    <HowDoIFeelNowNumberBefore nextStep={this.nextStep} />
+                    <HowDoIFeelNowNumberBefore nextStep={this.nextStep} save={this.saveValue} value={this.state.HowDoIFeelNowNumberBefore} />
                 );
                 break;
             default:
@@ -46,7 +56,10 @@ class WhatIsItThatIDontWant extends React.Component  {
     }
     handleKeyUp(e){
         if( e.key == 'Enter' ) {
-            if( !e.shiftKey ) this.props.nextStep();
+            if( !e.shiftKey ){
+                this.props.nextStep();
+                this.props.save('WhatIsItThatIDontWant', this.refs.textarea.value.trim());
+            }
         }
     }
     componentDidMount(){
@@ -57,7 +70,7 @@ class WhatIsItThatIDontWant extends React.Component  {
         return (
             <div className="form-group form-viewport-centered">
                 <label><h3 className="title big">What is it that I don't want?</h3></label>
-                <textarea className="form-control" rows={3} defaultValue={""} ref="textarea" onKeyUp={this.handleKeyUp} />
+                <textarea className="form-control" rows={3} defaultValue={this.props.value} ref="textarea" onKeyUp={this.handleKeyUp} />
             </div>
         );
     }
@@ -70,7 +83,10 @@ class WhatDoIWant extends React.Component  {
     }
     handleKeyUp(e){
         if( e.key == 'Enter' ) {
-            if( !e.shiftKey ) this.props.nextStep();
+            if( !e.shiftKey ){
+                this.props.nextStep();
+                this.props.save('WhatDoIWant', this.refs.textarea.value.trim());
+            }
         }
     }
     componentDidMount(){
@@ -81,7 +97,7 @@ class WhatDoIWant extends React.Component  {
         return (
             <div className="form-group form-viewport-centered">
                 <label><h3 className="title big">What do I want?</h3></label>
-                <textarea className="form-control" rows={3} defaultValue={""} ref="textarea" onKeyUp={this.handleKeyUp} />
+                <textarea className="form-control" rows={3} defaultValue={this.props.value} ref="textarea" onKeyUp={this.handleKeyUp} />
             </div>
         );
     }
@@ -94,7 +110,10 @@ class HowDoIFeelNowBefore extends React.Component  {
     }
     handleKeyUp(e){
         if( e.key == 'Enter' ) {
-            if( !e.shiftKey ) this.props.nextStep();
+            if( !e.shiftKey ){
+                this.props.nextStep();
+                this.props.save('HowDoIFeelNowBefore', this.refs.textarea.value.trim());
+            }
         }
     }
     componentDidMount(){
@@ -104,7 +123,7 @@ class HowDoIFeelNowBefore extends React.Component  {
         return (
             <div className="form-group form-viewport-centered">
                 <label><h3 className="title big">How do I feel now?</h3><p>(e.g. frustrated, annoyed, powerless)</p></label>
-                <textarea className="form-control" rows={1} defaultValue={""} ref="textarea" onKeyUp={this.handleKeyUp} />
+                <textarea className="form-control" rows={1} defaultValue={this.props.value} ref="textarea" onKeyUp={this.handleKeyUp} />
             </div>
         );
     }
@@ -116,12 +135,15 @@ class HowDoIFeelNowNumberBefore extends React.Component  {
         this.handleKeyUp = this.handleKeyUp.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-            value: 5
+            value: this.props.value
         };
     }
     handleKeyUp(e){
         if( e.key == 'Enter' ) {
-            if( !e.shiftKey ) this.props.nextStep();
+            if( !e.shiftKey ){
+                this.props.nextStep();
+                this.props.save('HowDoIFeelNowNumberBefore', this.refs.textarea.value.trim());
+            }
         }
     }
     handleChange(e){
