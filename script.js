@@ -23,24 +23,51 @@ class App extends React.Component {
     }
     render(){
         switch(this.state.step) {
-            case 1:
+            case -3:
                 return (
                     <WhatIsItThatIDontWant nextStep={this.nextStep} save={this.saveValue} value={this.state.WhatIsItThatIDontWant} />
                 );
                 break;
-            case 2:
+            case -2:
                 return (
                     <WhatDoIWant nextStep={this.nextStep} save={this.saveValue} value={this.state.WhatDoIWant} />
                 );
                 break;
-            case 3:
+            case -1:
                 return (
                     <HowDoIFeelNowBefore nextStep={this.nextStep} save={this.saveValue} value={this.state.HowDoIFeelNowBefore} />
                 );
                 break;
-            case 4:
+            case 0:
                 return (
                     <HowDoIFeelNowNumberBefore nextStep={this.nextStep} save={this.saveValue} value={this.state.HowDoIFeelNowNumberBefore} />
+                );
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+            case 20:
+            case 21:
+            case 22:
+            case 23:
+            case 24:
+                return (
+                    <FocusWheels nextStep={this.nextStep} save={this.saveValue} currentStep={this.state.step} />
                 );
                 break;
             default:
@@ -166,4 +193,96 @@ class HowDoIFeelNowNumberBefore extends React.Component  {
     }
 }
 
-// ReactDOM.render(<App />, document.getElementById('content'));
+class FocusWheels extends React.Component {
+    componentWillUpdate(nextProps){
+        if( nextProps.currentStep > this.props.currentStep ) {
+            $('.focus-wheel-steps').slick('slickNext');
+        }
+    }
+    render() {
+        return (
+            <div className="focus-wheel-process row">
+                <div className="center-statement"><h1 className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1></div>
+                <FocusWheelsPrinter currentStep={this.props.currentStep} nextStep={this.props.nextStep} />
+            </div>
+        );
+    }
+}
+
+class FocusWheelsPrinter extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
+    }
+    componentDidMount(){
+        $('.focus-wheel-steps').on('init', function(event, slick, direction){
+            this.refs['textarea-'+1].focus();
+        }.bind(this));
+        $('.focus-wheel-steps').slick({
+            centerMode: true,
+            centerPadding: '30px',
+            infinite: false,
+            slidesToShow: 3,
+            slidesToScroll: 1
+        });
+    }
+    componentDidUpdate(){
+        this.refs['textarea-'+this.props.currentStep].focus();
+    }
+    handleKeyUp(e){
+        if( e.key == 'Enter' ) {
+            if( !e.shiftKey ){
+                this.props.nextStep();
+                //this.props.save('WhatIsItThatIDontWant', this.refs.textarea.value.trim());
+            }
+        }
+    }
+    render() {
+        let totalSteps = 24;
+        let FocusWheels = [];
+        for (let i = 1; i <= totalSteps; i++) {
+            FocusWheels.push(i);
+        }
+        return <div className="focus-wheel-steps">{FocusWheels.map(function(number, index){
+            let disabledClass = ' disabled ';
+            if(this.props.currentStep == number) {
+                disabledClass = ' ';
+            }
+            return (
+                <div className="focus-wheel-step form-group" key={number}>
+                    <h3 className=" text text-center">{number}</h3>
+                    <textarea className={"form-control focus-wheel-" + number + disabledClass} ref={'textarea-'+number} rows={5} defaultValue={""} onKeyUp={this.handleKeyUp} />
+                </div>
+            );
+        }.bind(this))}</div>
+    }
+};
+
+class FocusWheelStep extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
+    }
+    componentDidUpdate(){
+        if( this.props.currentStep == this.props.index )
+            this.refs['textarea'].focus();
+    }
+    handleKeyUp(e){
+        if( e.key == 'Enter' ) {
+            if( !e.shiftKey ){
+                this.props.nextStep();
+                //this.props.save('WhatIsItThatIDontWant', this.refs.textarea.value.trim());
+            }
+        }
+    }
+    render() {
+        return (
+            <div className="focus-wheel-step form-group">
+                <h3 className=" text text-center">{this.props.index}</h3>
+                <textarea className={"form-control focus-wheel-" + this.props.index} ref="textarea" rows={5} defaultValue={""} onKeyUp={this.handleKeyUp} />
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<App />, document.getElementById('content'));
