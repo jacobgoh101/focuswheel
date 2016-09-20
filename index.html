@@ -2,38 +2,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>Focus Wheel</title>
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="css/styles.css">
-  <script src="js/react.js"></script>
-  <script src="js/react-dom.js"></script>
-  <script src="js/browser.min.js"></script>
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Focus Wheel</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="plugin/slick/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="plugin/slick/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="plugin/slick/slick/slick.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
-  <div id="content" class="text-center">
-  </div>
+    <div id="content" class="text-center">
+        <div class="focus-wheel-process row">
+            <div class="center-statement"><h1 class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1></div>
+            <div class="focus-wheel-steps">
+                <div class="focus-wheel-step form-group">
+                    <textarea class="form-control" rows=5 ></textarea>
+                </div>
+                <div class="focus-wheel-step form-group">
+                    <textarea class="form-control" rows=5 ></textarea>
+                </div>
+                <div class="focus-wheel-step form-group">
+                    <textarea class="form-control" rows=5 ></textarea>
+                </div>
+                <div class="focus-wheel-step form-group">
+                    <textarea class="form-control" rows=5 ></textarea>
+                </div>
+                <div class="focus-wheel-step form-group">
+                    <textarea class="form-control" rows=5 ></textarea>
+                </div>
+                <div class="focus-wheel-step form-group">
+                    <textarea class="form-control" rows=5 ></textarea>
+                </div>
+                <div class="focus-wheel-step form-group">
+                    <textarea class="form-control" rows=5 ></textarea>
+                </div>
+                <div class="focus-wheel-step form-group">
+                    <textarea class="form-control" rows=5 ></textarea>
+                </div>
+                <div class="focus-wheel-step form-group">
+                    <textarea class="form-control" rows=5 ></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script type="text/babel" src="script.js"></script>
 <script>
-  $(document).ready(function(){
-    $('body').on('input','textarea',function () {
-      var h= this.offsetHeight;
-      $(this).css({   //clear current padding and height so we can use scrollHeight below
-        paddingTop: 0,
-        height: 0
-      });
+    $(document).ready(function(){
+        $('body').on('input','textarea',function () {
+            var h= this.offsetHeight;
+            $(this).css({   //clear current padding and height so we can use scrollHeight below
+                paddingTop: 0,
+                height: 0
+            });
 
-      $(this).css({
-        paddingTop: Math.max(0, h/2 - this.scrollHeight/2),
-        height: h
-      });
+            $(this).css({
+                paddingTop: Math.max(0, h/2 - this.scrollHeight/2),
+                height: h
+            });
+        });
+
+        $('.focus-wheel-steps').slick({
+            centerMode: true,
+            centerPadding: '60px',
+            infinite: false,
+            slidesToShow: 3,
+            slidesToScroll: 1
+        });
     });
-  });
 </script>
 </body>
 </html>

@@ -166,4 +166,4 @@ class HowDoIFeelNowNumberBefore extends React.Component  {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('content'));
+// ReactDOM.render(<App />, document.getElementById('content'));
