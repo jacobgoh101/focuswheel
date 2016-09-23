@@ -210,6 +210,7 @@ class HowDoIFeelNowNumberBefore extends React.Component  {
 class FocusWheels extends React.Component {
     componentWillUpdate(nextProps){
         if( nextProps.currentStep > this.props.currentStep ) {
+            console.log('slickNext');
             $('.focus-wheel-steps').slick('slickNext');
         }
     }
@@ -233,13 +234,19 @@ class FocusWheelsPrinter extends React.Component{
         $('.focus-wheel-steps').on('init', function(event, slick, direction){
             this.refs['textarea-'+1].focus();
         }.bind(this));
-        $('.focus-wheel-steps').slick({
-            centerMode: true,
-            centerPadding: '30px',
-            infinite: false,
-            slidesToShow: 3,
-            slidesToScroll: 1
-        });
+        if( window.innerWidth > 768 ) {
+            $('.focus-wheel-steps').slick({
+                centerMode: true,
+                centerPadding: '30px',
+                infinite: false,
+                slidesToShow: 3,
+                slidesToScroll: 1
+            });
+        }else {
+            $('.focus-wheel-steps').slick({
+                infinite: false,
+            });
+        }
     }
     componentDidUpdate(){
         this.refs['textarea-'+this.props.currentStep].focus();

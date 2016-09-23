@@ -72,6 +72,9 @@ body,
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+  @include media(max-height 400px) {
+    display: none;
+  }
 }
 
 .results {
