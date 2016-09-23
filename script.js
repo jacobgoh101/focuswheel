@@ -2,14 +2,16 @@ class App extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            step: 1,
+            step: -3,
             WhatIsItThatIDontWant: '',
             WhatDoIWant: '',
             HowDoIFeelNowBefore: '',
             HowDoIFeelNowNumberBefore: 5,
+            FocusWheels: {},
         };
         this.nextStep = this.nextStep.bind(this);
         this.saveValue = this.saveValue.bind(this);
+        this.saveFocusWheelValue = this.saveFocusWheelValue.bind(this);
     }
     nextStep(){
         this.setState({
@@ -20,6 +22,13 @@ class App extends React.Component {
         var obj = {};
         obj[componentName] = value;
         this.setState(obj);
+    }
+    saveFocusWheelValue(index, value){
+        var obj = this.state.FocusWheels;
+        obj[index] = value;
+        this.setState({
+            FocusWheels: obj
+        });
     }
     render(){
         switch(this.state.step) {
@@ -67,7 +76,12 @@ class App extends React.Component {
             case 23:
             case 24:
                 return (
-                    <FocusWheels nextStep={this.nextStep} save={this.saveValue} currentStep={this.state.step} />
+                    <FocusWheels nextStep={this.nextStep} saveFocusWheelValue={this.saveFocusWheelValue} currentStep={this.state.step} WhatDoIWant={this.state.WhatDoIWant} />
+                );
+                break;
+            case 25:
+                return (
+                    <Results theWholeState={this.state} />
                 );
                 break;
             default:
@@ -202,8 +216,9 @@ class FocusWheels extends React.Component {
     render() {
         return (
             <div className="focus-wheel-process row">
-                <div className="center-statement"><h1 className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1></div>
-                <FocusWheelsPrinter currentStep={this.props.currentStep} nextStep={this.props.nextStep} />
+                <div className="center-statement"><h1 className="text">{this.props.WhatDoIWant}</h1></div>
+                <FocusWheelsPrinter currentStep={this.props.currentStep} nextStep={this.props.nextStep} saveFocusWheelValue={this.props.saveFocusWheelValue} />
+                <div className="gentle-reminder">Gently allow yourself to find a statement that feel slightly better (or as good as) the last statement.</div>
             </div>
         );
     }
@@ -232,6 +247,7 @@ class FocusWheelsPrinter extends React.Component{
     handleKeyUp(e){
         if( e.key == 'Enter' ) {
             if( !e.shiftKey ){
+                this.props.saveFocusWheelValue(this.props.currentStep, this.refs['textarea-'+this.props.currentStep].value.trim());
                 this.props.nextStep();
                 //this.props.save('WhatIsItThatIDontWant', this.refs.textarea.value.trim());
             }
@@ -258,7 +274,7 @@ class FocusWheelsPrinter extends React.Component{
     }
 };
 
-class FocusWheelStep extends React.Component{
+/*class FocusWheelStep extends React.Component{
     constructor(props){
         super(props);
         this.handleKeyUp = this.handleKeyUp.bind(this);
@@ -280,6 +296,48 @@ class FocusWheelStep extends React.Component{
             <div className="focus-wheel-step form-group">
                 <h3 className=" text text-center">{this.props.index}</h3>
                 <textarea className={"form-control focus-wheel-" + this.props.index} ref="textarea" rows={5} defaultValue={""} onKeyUp={this.handleKeyUp} />
+            </div>
+        );
+    }
+}*/
+
+class Results extends React.Component {
+    render(){
+        //console.log(this.props.theWholeState);
+        return (
+            <div className="results text-center">
+                <div>What I don't want: </div>
+                <h3 className="dont-want">{this.props.theWholeState.WhatIsItThatIDontWant}</h3>
+                <div>What do I want: </div>
+                <h1 className="do-want">{this.props.theWholeState.WhatDoIWant}</h1>
+                <div className="focus-wheels-list text-left">
+                    <ol>
+                        <li>{this.props.theWholeState.FocusWheels[1]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[2]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[3]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[4]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[5]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[6]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[7]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[8]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[9]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[10]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[11]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[12]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[13]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[14]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[15]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[16]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[17]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[18]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[19]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[20]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[21]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[22]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[23]}</li>
+                        <li>{this.props.theWholeState.FocusWheels[24]}</li>
+                    </ol>
+                </div>
             </div>
         );
     }
