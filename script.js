@@ -210,8 +210,9 @@ class HowDoIFeelNowNumberBefore extends React.Component  {
 class FocusWheels extends React.Component {
     componentWillUpdate(nextProps){
         if( nextProps.currentStep > this.props.currentStep ) {
-            console.log('slickNext');
-            $('.focus-wheel-steps').slick('slickNext');
+            if( window.innerWidth > 768 ) {
+                $('.focus-wheel-steps').slick('slickNext');
+            }
         }
     }
     render() {
