@@ -48,6 +48,9 @@ body,
     width: 100%;
     height: 40%;
     position: relative;
+    @include media(max-height 400px) {
+      height: 20%;
+    }
     .text {
       position: absolute;
       top: 50%;
@@ -55,6 +58,9 @@ body,
       transform: translate(-50%, -50%);
       @include media(max-width 768px) {
         font-size: 24px;
+      }
+      @include media(max-height 400px) {
+        font-size: 14px;
       }
     }
   }
